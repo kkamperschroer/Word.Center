@@ -1,0 +1,80 @@
+#length_slider{
+    width: 225px;
+}
+
+.page-header{
+    margin-top: 10px;
+}
+
+.toggle_group{
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    padding: 45px 15px 15px;
+    margin: 0 -15px 15px;
+    background-color: #fafafa;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,.05);
+    border-color: #e5e5e5 #eee #eee;
+    border-style: solid;
+    border-width: 1px 0;
+}
+
+.toggle_group:after{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#vowels_outer_container:after{
+    content: "Vowels";
+}
+
+#consonants_outer_container:after{
+    content: "Consonants";
+}
+
+#length_slider_container:after{
+    content: "Length";
+}
+
+#results_container:after{
+    content: "Results";
+}
+
+#page_content{
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 650px;
+}
+
+#left_side_container{
+    float: left;
+}
+
+#right_side_container{
+    float: right;
+}
+
+#generated_word{
+    font-size: 35px;
+    text-align: center;
+}
+
+#footer_wrapper{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    padding: 3px;
+}
+
+footer{
+    text-align: center;
+    font-size: 9px;
+}
