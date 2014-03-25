@@ -47,6 +47,10 @@
     content: "Results";
 }
 
+#testimonial_container:after{
+    content: "Testimonial";
+}
+
 #page_content{
     padding: 0;
     margin-left: auto;
@@ -78,3 +82,34 @@ footer{
     text-align: center;
     font-size: 9px;
 }
+
+#testimonial{
+    width: 220px;
+    font-size: 14px;
+    text-indent: 30px;
+}
+
+
+blockquote {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    margin: 0px;
+    padding: 0.60em 0px 0px 0px;
+    line-height: 1.45;
+    position: relative;
+    color: #383838;
+}
+
+blockquote:before {
+    display: block;
+    padding-left: 10px;
+    content: "\201C";
+    font-size: 80px;
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    color: #7a7a7a;
+}
+
+
