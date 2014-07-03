@@ -39,6 +39,10 @@
     content: "Consonants";
 }
 
+#advanced_consonants_outer_container:after{
+    content: "Advanced Consonants";
+}
+
 #length_slider_container:after{
     content: "Length";
 }

@@ -8,10 +8,17 @@ var mDebug = false;
 // The possible vowels
 var mVowels = ['A','E','I','O','U', 'Y'];
 
+// The advanced vowel combinations
+var mAdvancedVowels = {
+
+};
+
 // The possible consonants
 var mConsonants = ['B','C','D','F','G','H','J','K','L','M','N',
                    'P','Q','R','S','T','V','W','X','Y','Z'];
 
+// The advanced consonant combinations
+var mAdvancedConsonants = ['KC', 'SH'];
 
 /////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -24,9 +31,12 @@ function PopulateLetterToggles(){
 
     // Populate the consonants
     PopulateConsonants();
+
+    // Populate the advanced consonants
+    PopulateAdvancedConsonants();
 }
 
-// This function populates the vowels
+// This function populates the consonants
 function PopulateConsonants(){
     // Get that consonants container element
     var consonantsContainer = $('#consonants_container_0');
@@ -61,6 +71,44 @@ function PopulateConsonants(){
 
         // Append this one to it's container
         AppendToggleToContainer(mConsonants[i], consonantsContainer);
+    }
+}
+
+// This function populates the advanced consonants
+function PopulateAdvancedConsonants(){
+    // Get that consonants container element
+    var advancedConsonantsContainer = $('#advanced_consonants_container_0');
+
+    // Variable to count sub-containers
+    var containerCount = 1;
+
+    // Empty it
+    advancedConsonantsContainer.empty();
+
+    // Now iterate through each possible consonant, adding it to the element
+    for (var i=0; i<mAdvancedConsonants.length; i++){
+        // Check if we've already displayed 7
+        if ((i != 0) && (i % 7 == 0)){
+            // Build an id for the new container
+            var newId = "advanced_consonants_countainer_" + containerCount;
+            
+            // Create a new container
+            var newContainerStr =
+                "<br/><br/><div id='" + newId +
+                "' class='btn-group' data-toggle='buttons'></div>";
+
+            // Append it to the parent
+            advancedConsonantsContainer.after(newContainerStr);
+
+            // Increment our counter
+            containerCount++;
+
+            // Select the new one to append to
+            advancedConsonantsContainer = $("#" + newId);
+        }
+
+        // Append this one to it's container
+        AppendToggleToContainer(mAdvancedConsonants[i], advancedConsonantsContainer);
     }
 }
 
@@ -134,6 +182,9 @@ function GenerateWord(){
     // Grab all of the active consonant toggles
     var activeConsonantToggles = $('#consonants_outer_container .letter-toggle.active');
 
+    // Grab all of the active advanced consonant toggles
+    var activeAdvancedConsonantToggles = $('#advanced_consonants_outer_container .letter-toggle.active');
+
     // Get the id's for each one and build an array
     var activeVowels = [];
     activeVowelToggles.each(function(){
@@ -143,6 +194,11 @@ function GenerateWord(){
     // Do the same for the consonants
     var activeConsonants = [];
     activeConsonantToggles.each(function(){
+        activeConsonants.push($(this).attr('id'));
+    });
+
+    // Append the advanced to the consonants as well
+    activeAdvancedConsonantToggles.each(function(){
         activeConsonants.push($(this).attr('id'));
     });
 
@@ -194,6 +250,11 @@ function BuildWord(vowels, consonants, length){
             curLetter = vowels[Math.floor(Math.random() * vowels.length)];
         }else{
             curLetter = consonants[Math.floor(Math.random() * consonants.length)];
+
+            if(curLetter.length == 2 && length-i == 1){
+                // Just use the first letter of it
+                curLetter = curLetter.substring(1, 1);
+            }
         }
 
         // Add the current letter to the word
@@ -225,6 +286,15 @@ function ClearConsonants(){
     DeactivateTheseToggles(consonantToggles);
 }
 
+// A function to clear the consonant selections
+function ClearAdvancedConsonants(){
+    // Grab all of the active consonant toggles
+    var advancedConsonantToggles = $('#advanced_consonants_outer_container .letter-toggle');
+
+    // Deactivate them
+    DeactivateTheseToggles(advancedConsonantToggles);
+}
+
 // A function to de-activate the provided elements
 function DeactivateTheseToggles(toggles){
     toggles.each(function(){
@@ -248,6 +318,15 @@ function AllConsonants(){
 
     // Activate them
     ActivateTheseToggles(consonantToggles);
+}
+
+// A function to activate all the consonant selections
+function AllAdvancedConsonants(){
+    // Grab all of the active consonant toggles
+    var advancedConsonantToggles = $('#advanced_consonants_outer_container .letter-toggle');
+
+    // Activate them
+    ActivateTheseToggles(advancedConsonantToggles);
 }
 
 // A function to de-activate the provided elements
@@ -298,6 +377,9 @@ $(function(){
     $('#clear_consonants').bind('click', function(){
         ClearConsonants();
     });
+    $('#clear_advanced_consonants').bind('click', function(){
+        ClearAdvancedConsonants();
+    });
 
     // Bind click event for the all buttons
     $('#all_vowels').bind('click', function(){
@@ -305,6 +387,9 @@ $(function(){
     });
     $('#all_consonants').bind('click', function(){
         AllConsonants();
+    });
+    $('#all_advanced_consonants').bind('click', function(){
+        AllAdvancedConsonants();
     });
 
     // Bind the click event for randomizing
