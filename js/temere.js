@@ -18,7 +18,13 @@ var mConsonants = ['B','C','D','F','G','H','J','K','L','M','N',
                    'P','Q','R','S','T','V','W','X','Y','Z'];
 
 // The advanced consonant combinations
-var mAdvancedConsonants = ['KC', 'SH'];
+var mAdvancedConsonants = 
+    ['CK', 'SH', 'RT', 'TH', 'BH', 'GH', 'THR',
+     'TR', 'BR', 'CL', 'BL', 'CL', 'FL', 'FR',
+     'CR', 'GR', 'GL', 'KL', 'KR', 'PR', 'PL',
+     'SL', 'SR', 'VR', 'WR', 'SM', 'SN', 'NG',
+     'PP', 'LL', 'GG', 'MM', 'NN', 'DD', 'SS',
+     'TT'];
 
 /////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -155,6 +161,12 @@ function SelectRandomToggles(){
 
     // Toggle 20% of them
     TogglePercentageOfToggles(0.20, consonantToggles);
+
+    // Grab all of the items with class letter-toggle
+    var advancedConsonantToggles = $('#advanced_consonants_outer_container .letter-toggle');
+
+    // Toggle 20% of them
+    TogglePercentageOfToggles(0.05, advancedConsonantToggles);
 }
 
 // Helper function for toggling randomly
@@ -235,7 +247,7 @@ function BuildWord(vowels, consonants, length){
     }
 
     // Boolean to flop between consonant and vowel
-    var vowelsTurn = false;
+    var vowelsTurn = (Math.random() > 0.5);
 
     // The word to be built
     var builtWord = "";
@@ -244,17 +256,12 @@ function BuildWord(vowels, consonants, length){
     var curLetter = '';
 
     // Begin going through each digit
-    for (var i=0; i<length; i++){
+    while(builtWord.length < length){
         if (vowelsTurn){
             // Choose a vowel at random
             curLetter = vowels[Math.floor(Math.random() * vowels.length)];
         }else{
             curLetter = consonants[Math.floor(Math.random() * consonants.length)];
-
-            if(curLetter.length == 2 && length-i == 1){
-                // Just use the first letter of it
-                curLetter = curLetter.substring(1, 1);
-            }
         }
 
         // Add the current letter to the word
@@ -263,6 +270,9 @@ function BuildWord(vowels, consonants, length){
         // Flop the boolean
         vowelsTurn = !vowelsTurn;
     }
+
+    // Automatically substing, in case we ended up too long
+    builtWord = builtWord.substring(0, length);
 
     // Return the built word
     return builtWord;
@@ -339,7 +349,7 @@ function ActivateTheseToggles(toggles){
 // A function to choose a random length
 function SelectRandomLength(){
     // Generate a value
-    var value = Math.floor(Math.random() * 7 + 3);
+    var value = Math.floor(Math.random() * 4 + 3);
     
     // Set the slider value
     $('#length_slider').slider('setValue', value);
