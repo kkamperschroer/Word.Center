@@ -5,26 +5,6 @@
 // If this is set to true, we'll output debugging messages
 var mDebug = false;
 
-// The possible vowels
-var mVowels = ['A','E','I','O','U', 'Y'];
-
-// The advanced vowel combinations
-var mAdvancedVowels = {
-
-};
-
-// The possible consonants
-var mConsonants = ['B','C','D','F','G','H','J','K','L','M','N',
-                   'P','Q','R','S','T','V','W','X','Y','Z'];
-
-// The advanced consonant combinations
-var mAdvancedConsonants = 
-    ['CK', 'SH', 'RT', 'TH', 'BH', 'GH', 'THR',
-     'TR', 'BR', 'CL', 'BL', 'CL', 'FL', 'FR',
-     'CR', 'GR', 'GL', 'KL', 'KR', 'PR', 'PL',
-     'SL', 'SR', 'VR', 'WR', 'SM', 'SN', 'NG',
-     'PP', 'LL', 'GG', 'MM', 'NN', 'DD', 'SS',
-     'TT'];
 
 /////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -34,6 +14,9 @@ var mAdvancedConsonants =
 function PopulateLetterToggles(){
     // Populate the vowels
     PopulateVowels();
+
+    // Populate the advanced vowels
+    PopulateAdvancedVowels();
 
     // Populate the consonants
     PopulateConsonants();
@@ -130,6 +113,21 @@ function PopulateVowels(){
     for (var i=0; i<mVowels.length; i++){
         // Append this one to it's container
         AppendToggleToContainer(mVowels[i], vowelsContainer);
+    }
+}
+
+// This function populates the advanced vowels
+function PopulateAdvancedVowels(){
+    // Get that advanced vowels container element
+    var advancedVowelsContainer = $('#advanced_vowels_container');
+
+    // Empty it
+    advancedVowelsContainer.empty();
+
+    // Now iterate through each possible vowel, adding it to the element
+    for (var i=0; i<mAdvancedVowels.length; i++){
+        // Append this one to it's container
+        AppendToggleToContainer(mAdvancedVowels[i], advancedVowelsContainer);
     }
 }
 
