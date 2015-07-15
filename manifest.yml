@@ -1,0 +1,8 @@
+
+---
+applications:
+- name: word.center
+  memory: 16M
+  domain: word.center
+  no-hostname: true
+  buildpack: staticfile_buildpack
